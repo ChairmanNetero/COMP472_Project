@@ -4,6 +4,10 @@ import os
 input_dir = 'Dataset/test/surprise/'
 output_dir = 'out/test/surprise/'
 
+# Create the output directory if it doesn't exist
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
 # list files in input directory
 list = os.listdir(input_dir)
 
