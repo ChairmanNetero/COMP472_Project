@@ -36,5 +36,5 @@ def Re_Labeling(path, label):
 
 print("start")
 ## first argument is the path of the directory, second argument is the the name you wanna give it 
-Re_Labeling("DoesntHaveFocused_BlacknWhite/test/Labeltest", "testing_tests")
+Re_Labeling("test/surprise", "test_surprise")
 print("done")
