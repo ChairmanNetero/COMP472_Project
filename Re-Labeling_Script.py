@@ -36,5 +36,5 @@ def Re_Labeling(path, label):
 
 print("start")
 ## first argument is the path of the directory, second argument is the the name you wanna give it 
-Re_Labeling("test/surprise", "test_surprise")
+Re_Labeling("train/neutral", "train_neutral")
 print("done")
