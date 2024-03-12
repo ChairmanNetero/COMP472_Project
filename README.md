@@ -12,6 +12,10 @@ Note that the inputs and outputs need to be changed to the respective values for
 
 Also, note that the greyscale line was commented out. This line was only used for the engaged dataset. Since the other datasets are already black and white. So depending on whether this line is commented out or not, you need to make sure that the right image is being outputted.
 
+Lastly, make sure you have the OpenCV library installed
+
+---
+
 This is for re-labeling
 
 `python Re-Labeling_script.py`
@@ -36,5 +40,3 @@ This command was used to plot the 5x5 grid images
 Install the required libraries using pip:
 pip install numpy matplotlib scikit-learn
 
-
-Lastly, make sure you have the OpenCV library installed
