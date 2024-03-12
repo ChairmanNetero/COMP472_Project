@@ -1,5 +1,6 @@
 import os 
 def Re_Labeling(path, file_name):
+    print("start")
     # gives list of all files in the path directory
     files = os.listdir(path)
 
@@ -34,7 +35,10 @@ def Re_Labeling(path, file_name):
            
             
 
-print("start")
+
 ## first argument is the path of the directory, second argument is the the name you wanna give it 
+##ENTER HERE FOR RUNNING THE SCRIPT 
 Re_Labeling("../Data/test/engaged", "test_engaged")
+
+
 print("done")
