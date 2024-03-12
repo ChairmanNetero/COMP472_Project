@@ -1,8 +1,13 @@
 # COMP472_Project
 
-# Part 1
+## Content
+- ExpectationsOfOriginality :: Contains the Expectations of Originality files
+- dataset.txt :: Containes provenance of our datasets
+- SamplesOfDataset :: Contains 25 samples of each facial expression
+- Report.pdf :: This is our report
 
-## Data Cleaning/Formatting
+## Python Scripts
+### Data Cleaning/Formatting
 
 This command was used to standardize the data
 
@@ -28,7 +33,7 @@ Keep in mind, that the script will change all the file names in the directory.
 
 
 
-## Data Visualization
+### Data Visualization
 This command was used to plot class distriubtion
 
 `python ClassDistribution.py`
@@ -38,5 +43,5 @@ This command was used to plot the 5x5 grid images
 `python SampleImages.py`
 
 Install the required libraries using pip:
-pip install numpy matplotlib scikit-learn
+`pip install numpy matplotlib scikit-learn`
 
