@@ -1,0 +1,18 @@
+# Dataset Provenance
+
+## FER-2013
+
+Link: https://www.kaggle.com/datasets/msambare/fer2013
+License: https://opendatacommons.org/licenses/dbcl/1-0/
+
+
+## DAiSEE
+
+Link: https://people.iith.ac.in/vineethnb/resources/daisee/index.html
+License: https://people.iith.ac.in/vineethnb/resources/daisee/index.html#disclaimer
+
+
+## Engagement_2_class
+
+Link: https://www.kaggle.com/datasets/avnimittal/engagement-2-class
+License: https://creativecommons.org/publicdomain/zero/1.0/
