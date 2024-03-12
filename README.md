@@ -1,5 +1,7 @@
 # COMP472_Project
 
+Github repo: https://github.com/ChairmanNetero/COMP472_Project
+
 ## Content
 - ExpectationsOfOriginality
 : Contains the Expectations of Originality files
