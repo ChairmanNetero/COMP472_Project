@@ -3,20 +3,18 @@
 Github repo: https://github.com/ChairmanNetero/COMP472_Project
 
 ## Content
-ExpectationsOfOriginality
-: Contains the Expectations of Originality files
-
-dataset.txt
-: Containes provenance of our datasets
-
-SamplesOfDataset
-: Contains 25 samples of each facial expression
-
-Report.pdf
-: This is our report
-
-Python
-: Folder containing our python scripts used
+<dl>
+  <dt>ExpectationsOfOriginality</dt>
+  <dd>Contains the Expectations of Originality files</dd>
+  <dt>dataset.txt</dt>
+  <dd>Containes provenance of our datasets</dd>
+  <dt>SamplesOfDataset</dt>
+  <dd>Contains 25 samples of each facial expression</dd>
+  <dt>Report.pdf</dt>
+  <dd>This is our report</dd>
+  <dt>Python</dt>
+  <dd>Folder containing our python scripts used</dd>
+</dl>
 
 ## Python Scripts
 ### Data Cleaning/Formatting
