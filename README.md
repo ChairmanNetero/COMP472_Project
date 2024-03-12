@@ -37,3 +37,4 @@ Install the required libraries using pip:
 pip install numpy matplotlib scikit-learn
 
 
+Lastly, make sure you have the OpenCV library installed
