@@ -1,6 +1,6 @@
 # COMP472_Project
 
-#Part 1
+# Part 1
 
 ## Data Cleaning/Formatting
 
