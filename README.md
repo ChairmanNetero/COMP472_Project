@@ -1,10 +1,16 @@
 # COMP472_Project
 
 ## Content
-- ExpectationsOfOriginality :: Contains the Expectations of Originality files
-- dataset.txt :: Containes provenance of our datasets
-- SamplesOfDataset :: Contains 25 samples of each facial expression
-- Report.pdf :: This is our report
+- ExpectationsOfOriginality
+: Contains the Expectations of Originality files
+- dataset.txt
+: Containes provenance of our datasets
+- SamplesOfDataset
+: Contains 25 samples of each facial expression
+- Report.pdf
+: This is our report
+- Python
+: Folder containing our python scripts used
 
 ## Python Scripts
 ### Data Cleaning/Formatting
