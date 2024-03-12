@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as plt
 
 # Path to the folder containing class folders
-data_folder = 'Dataset/train'
+data_folder = '../Data/train'
 
 # Get the list of class folders
 class_folders = [folder for folder in os.listdir(data_folder) if os.path.isdir(os.path.join(data_folder, folder))]

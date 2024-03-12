@@ -1,10 +1,10 @@
 import os 
-def Re_Labeling(path, label):
+def Re_Labeling(path, file_name):
     # gives list of all files in the path directory
     files = os.listdir(path)
 
-    # has a format to prevent errors in the label
-    label = label.rstrip("_") + "_"
+    # has a format to prevent errors in the file_name
+    file_name = file_name.rstrip("_") + "_"
 
     # counter for iterating 
     counter = 1
@@ -20,8 +20,8 @@ def Re_Labeling(path, label):
             # get the file type to prevent a corruption of the jpg files
             _, file_type = os.path.splitext(file)
 
-            # make the new file with the label, counter and the file type
-            new_file = f"{label}{counter}{file_type}"
+            # make the new file with the file_name, counter and the file type
+            new_file = f"{file_name}{counter}{file_type}"
             counter += 1
 
             # making the full new file path
@@ -36,5 +36,5 @@ def Re_Labeling(path, label):
 
 print("start")
 ## first argument is the path of the directory, second argument is the the name you wanna give it 
-Re_Labeling("train/neutral", "train_neutral")
+Re_Labeling("../Data/test/engaged", "test_engaged")
 print("done")
