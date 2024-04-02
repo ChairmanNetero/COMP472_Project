@@ -18,9 +18,9 @@ from Architectures import Main
 # variant_2 = os.path.join(current_dir, "models/best_model_Variant2.model")
 
 test_dataset_path = "../Data/test"
-main_model = "../models/best_model_Main_model.model"
-variant_1 = "../models/best_model_Variant1.model"
-variant_2 = "../models/best_model_Variant2.model"
+main_model = "models/best_model_Main.model"
+variant_1 = "models/best_model_Variant1.model"
+variant_2 = "models/best_model_Variant2.model"
 
 
 def eval_model(model_path, test_dataset, test_loader):
