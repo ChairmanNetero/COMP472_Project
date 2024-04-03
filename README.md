@@ -55,3 +55,45 @@ This command was used to plot the 5x5 grid images
 Install the required libraries using pip:
 `pip install numpy matplotlib scikit-learn`
 
+
+### Part 2 
+
+### Model training 
+
+`Model_Training.py`
+This is for model training 
+Print in terminal (ordered)
+1. Cpu or if conda is being used with gpu
+2. All the classes that are recongnized
+3. the number of pictures between training, testing and validation
+4. Which training model is now training
+5. Epoch with train loss, train accuracy, valid loss, valid accuracy
+6. Current Valid loss
+7. patience counter (for early stopping)
+8. print 5-7 until 10 epochs run or it performs early stop
+9. print 4-9 until all models are done.
+
+Run with:
+`python .\Model_Training.py`
+
+install required libraries using pip3:
+`pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
+
+### Performance Evaluation 
+
+`Acrchitectures.py` 
+This is used to define the architecture of each model class, its used as a import for eval_images and eval_models
+
+No need to run it since it's just used as an import. 
+
+
+For the following two scripts, make sure that before running them, you have all three models inside the `python/models` folder and that they are named appropriately (best_model_Main.model, best_model_Variant2.model, best_model_Variant1.model). Also make sure you have the requied packages, which can be seen in the import list at the top of the scripts themselves.
+
+`eval_images.py`
+This script is used to evaluate a given image using the main model. It prints out the predicted class for a given image. To run the script, first place yourself in the python folder, then execute `python eval_images.py <path_to_image>`
+
+`eval_models.py`
+This script is used to evaluate all three models. It prints out the confusion matrix, precision, recall, f-score and accuracy of each model. To run the script, first place yourself in the python folder, then execute `python eval_models.py`
+
+### Models  
+This folder contains all three of the best models saved from `Model_Training`

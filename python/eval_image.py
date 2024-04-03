@@ -33,7 +33,7 @@ if __name__ == "__main__":
     input_batch = input_tensor.unsqueeze(0)  # Add batch dimension
 
     # Load the saved model
-    model_path = '../models/best_model_Main_model.model'
+    model_path = 'models/best_model_Main.model'
     state_dict = torch.load(model_path)
 
     model = Main(num_classes=4)
