@@ -88,3 +88,5 @@ No need to run it since it's just used as an import.
 
 `eval_images`
 `eval_models`
+### Models  
+This folder contains all three of the best models saved from `Model_Training`
