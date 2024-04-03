@@ -7,7 +7,8 @@ import torch.nn as nn
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from prettytable import PrettyTable
-from Architectures import Main
+from Architectures import Main, Variant1, Variant2
+from sklearn.metrics import precision_score
 
 
 # Parameters
@@ -23,14 +24,14 @@ variant_1 = "models/best_model_Variant1.model"
 variant_2 = "models/best_model_Variant2.model"
 
 
-def eval_model(model_path, test_dataset, test_loader):
+def eval_model(model_path, test_dataset, test_loader, model):
     # Define device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Load the trained model
     state_dict = torch.load(model_path)
 
-    model = Main(num_classes=4)
+    model = model(num_classes=4)
 
     # Load the model's state dictionary
     model.load_state_dict(state_dict)
@@ -62,8 +63,8 @@ def eval_model(model_path, test_dataset, test_loader):
     accuracy = accuracy_score(true_labels, predicted_labels)
 
     # Calculate precision
-    precision_macro = precision_score(true_labels, predicted_labels, average='macro')
-    precision_micro = precision_score(true_labels, predicted_labels, average='micro')
+    precision_macro = precision_score(true_labels, predicted_labels, average='macro', zero_division=1)
+    precision_micro = precision_score(true_labels, predicted_labels, average='micro', zero_division=1)
 
     # Calculate recall
     recall_macro = recall_score(true_labels, predicted_labels, average='macro')
@@ -130,8 +131,8 @@ test_dataset = ImageFolder(root=test_dataset_path, transform=transform)
 batch_size = 32
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-eval_model(main_model, test_dataset, test_loader)
-eval_model(variant_1, test_dataset, test_loader)
-eval_model(variant_2, test_dataset, test_loader)
+eval_model(main_model, test_dataset, test_loader, Main)
+eval_model(variant_1, test_dataset, test_loader, Variant1)
+eval_model(variant_2, test_dataset, test_loader, Variant2)
 
 
