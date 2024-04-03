@@ -16,15 +16,15 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print(device)
 
-# transforms
+# Transforms
 transformer = transforms.Compose([
-    transforms.Resize((192, 192)),
+    transforms.Resize((192, 192)), ## Resizing the Image to 192 x 192 pixels, this is already that size but just to be sure
     transforms.RandomHorizontalFlip(),
     transforms.ToTensor(),
     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
 
-# Data Being split
+# Data Being split for 70 , 15, 15
 dataset = datasets.ImageFolder('../Data/train', transform=transformer)
 train_size = int(0.7 * len(dataset))
 valid_size = int(0.15 * len(dataset))
@@ -36,17 +36,14 @@ train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=True)
 valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=True)
 
-# categories
+# Categories
 root = pathlib.Path('../Data/train')
 classes = sorted([j.name.split('/')[-1] for j in root.iterdir()])
 print(classes)
 
 
 # CNN Network
-import torch.nn as nn
-
-
-# CNN Network
+# Main Model
 class Main(nn.Module):
     def __init__(self, num_classes=4):
         super(Main, self).__init__()
@@ -103,6 +100,7 @@ class Main(nn.Module):
 
 
 class Variant1(nn.Module):
+    # Variant 1
     def __init__(self, num_classes=4):
         super(Variant1, self).__init__()
 
@@ -143,6 +141,7 @@ class Variant1(nn.Module):
 
 
 class Variant2(nn.Module):
+    # Variant 2
     def __init__(self, num_classes=4):
         super(Variant2, self).__init__()
 
@@ -196,7 +195,7 @@ class Variant2(nn.Module):
 
 
 
-
+# Training the models on the dataset and saving the best model
 models = [Main(num_classes=4), Variant1(num_classes=4), Variant2(num_classes=4)]
 
 print(train_size, valid_size, test_size)
@@ -228,7 +227,7 @@ for i, model in enumerate(models):
         model.train()
         train_accuracy = 0.0
         train_loss = 0.0
-
+        # Loop over the training data
         for i, (images, labels) in enumerate(train_loader):
             if torch.cuda.is_available():
                 images = Variable(images.cuda())
@@ -253,7 +252,7 @@ for i, model in enumerate(models):
 
         valid_accuracy = 0.0
         valid_loss = 0.0
-
+        # Loop over the validation data
         for i, (images, labels) in enumerate(valid_loader):
             if torch.cuda.is_available():
                 images = Variable(images.cuda())
@@ -269,9 +268,10 @@ for i, model in enumerate(models):
 
         valid_accuracy = valid_accuracy / valid_size
         valid_loss = valid_loss / valid_size
-
+        # Print the loss and accuracy for each epoch
         print('Epoch: ' + str(epoch) + ' Train Loss: ' + str(train_loss) + ' Train Accuracy: ' + str(
             train_accuracy) + ' Valid Loss: ' + str(valid_loss) + ' Valid Accuracy: ' + str(valid_accuracy))
+        # Early stopping
         print('current valid loss: ' + str(current_valid_loss))
         if valid_loss < current_valid_loss:
             current_valid_loss = valid_loss
