@@ -142,12 +142,14 @@ def compute_metrics_for_subclass(subclass, predictions, labels):
     
     # Compute metrics
     accuracy = accuracy_score(subclass_labels, subclass_predictions)
-    precision = precision_score(subclass_labels, subclass_predictions, average='binary')
-    recall = recall_score(subclass_labels, subclass_predictions, average='binary')
-    f1 = f1_score(subclass_labels, subclass_predictions, average='binary')
+    precision = precision_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
+    recall = recall_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
+    f1 = f1_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
     
     return accuracy, precision, recall, f1
 
+print(all_predictions)
+print(all_labels)
 # Compute metrics for each subclass
 subclasses = ['young', 'middle', 'senior', 'male', 'female', 'other']
 for subclass in subclasses:
