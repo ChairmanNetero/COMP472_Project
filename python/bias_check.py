@@ -115,13 +115,47 @@ recall = recall_score(all_labels, all_predictions, average=None)
 f1 = f1_score(all_labels, all_predictions, average=None)
 
 # Print the metrics
+print()
 print(f"Overall Accuracy: {accuracy}")
+print()
 print("Precision for each subclass:")
-for subclass, precision_score in zip(dataset.classes, precision):
-    print(f"{subclass}: {precision_score}")
+for subclass, precision_scores in zip(dataset.classes, precision):
+    print(f"{subclass}: {precision_scores}")
+print()
 print("Recall for each subclass:")
-for subclass, recall_score in zip(dataset.classes, recall):
-    print(f"{subclass}: {recall_score}")
+for subclass, recall_scores in zip(dataset.classes, recall):
+    print(f"{subclass}: {recall_scores}")
+print()
 print("F1-score for each subclass:")
-for subclass, f1_score in zip(dataset.classes, f1):
-    print(f"{subclass}: {f1_score}")
+for subclass, f1_scores in zip(dataset.classes, f1):
+    print(f"{subclass}: {f1_scores}")
+print()
+
+
+
+# Define a function to compute metrics for each subclass
+def compute_metrics_for_subclass(subclass, predictions, labels):
+    # Filter predictions and labels for the specified subclass
+    subclass_indices = (all_ages == subclass) if subclass in ['young', 'middle', 'senior'] else (all_genders == subclass)
+    subclass_predictions = predictions[subclass_indices]
+    subclass_labels = labels[subclass_indices]
+    
+    # Compute metrics
+    accuracy = accuracy_score(subclass_labels, subclass_predictions)
+    precision = precision_score(subclass_labels, subclass_predictions, average='binary')
+    recall = recall_score(subclass_labels, subclass_predictions, average='binary')
+    f1 = f1_score(subclass_labels, subclass_predictions, average='binary')
+    
+    return accuracy, precision, recall, f1
+
+# Compute metrics for each subclass
+subclasses = ['young', 'middle', 'senior', 'male', 'female', 'other']
+for subclass in subclasses:
+    accuracy, precision, recall, f1 = compute_metrics_for_subclass(subclass, all_predictions, all_labels)
+    print(f"Metrics for subclass {subclass}:")
+    print(f"Accuracy: {accuracy}")
+    print(f"Precision: {precision}")
+    print(f"Recall: {recall}")
+    print(f"F1-score: {f1}")
+    print()
+
