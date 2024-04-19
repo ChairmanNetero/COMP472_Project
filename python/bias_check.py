@@ -118,15 +118,15 @@ f1 = f1_score(all_labels, all_predictions, average=None)
 print()
 print(f"Overall Accuracy: {accuracy}")
 print()
-print("Precision for each subclass:")
+print("Precision for each class:")
 for subclass, precision_scores in zip(dataset.classes, precision):
     print(f"{subclass}: {precision_scores}")
 print()
-print("Recall for each subclass:")
+print("Recall for each class:")
 for subclass, recall_scores in zip(dataset.classes, recall):
     print(f"{subclass}: {recall_scores}")
 print()
-print("F1-score for each subclass:")
+print("F1-score for each class:")
 for subclass, f1_scores in zip(dataset.classes, f1):
     print(f"{subclass}: {f1_scores}")
 print()
@@ -155,18 +155,50 @@ class_names = dataset.classes
 
 # Compute metrics for each age subclass
 subclasses = ['young', 'middle', 'senior']
-for subclass in subclasses:
-    print(f"Metrics for subclass {subclass}:")
-    subclass = age_dict[subclass]
+for s_subclass in subclasses:
+    print(f"Metrics for subclass {s_subclass}:")
+    subclass = age_dict[s_subclass]
     accuracy, precision, recall, f1 = compute_metrics_for_subclass(True, subclass, all_predictions, all_labels)
     print(f"Accuracy: {accuracy}")
     for i, class_name in enumerate(class_names):
-        if i < len(precision):
+        # if s_subclass == "young":
+        #     print(f"\tClass: {class_name}")
+        #     print(f"\tPrecision: {precision[i]}")
+        #     print(f"\tRecall: {recall[i]}")
+        #     print(f"\tF1-score: {f1[i]}")
+        #     print()
+
+        # elif class_name == "engaged":
+        #     continue
+
+        # elif class_name != "engaged":
+        #     i -= 1
+            # print(f"\tClass: {class_name}")
+            # print(f"\tPrecision: {precision[i]}")
+            # print(f"\tRecall: {recall[i]}")
+            # print(f"\tF1-score: {f1[i]}")
+            # print()
+
+
+        if s_subclass == "middle":
+            if class_name == "engaged":
+                continue
+
+            else:
+                i -= 1
+                print(f"\tClass: {class_name}")
+                print(f"\tPrecision: {precision[i]}")
+                print(f"\tRecall: {recall[i]}")
+                print(f"\tF1-score: {f1[i]}")
+                print()
+
+        else:
             print(f"\tClass: {class_name}")
             print(f"\tPrecision: {precision[i]}")
             print(f"\tRecall: {recall[i]}")
             print(f"\tF1-score: {f1[i]}")
             print()
+
     print()
 
 # Compute metrics for each gender subclass
@@ -177,10 +209,9 @@ for subclass in subclasses:
     accuracy, precision, recall, f1 = compute_metrics_for_subclass(False, subclass, all_predictions, all_labels)
     print(f"Accuracy: {accuracy}")
     for i, class_name in enumerate(class_names):
-        if i < len(precision):
-            print(f"\tClass: {class_name}")
-            print(f"\tPrecision: {precision[i]}")
-            print(f"\tRecall: {recall[i]}")
-            print(f"\tF1-score: {f1[i]}")
-            print()
+        print(f"\tClass: {class_name}")
+        print(f"\tPrecision: {precision[i]}")
+        print(f"\tRecall: {recall[i]}")
+        print(f"\tF1-score: {f1[i]}")
+        print()
     print()
