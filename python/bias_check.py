@@ -161,11 +161,12 @@ for subclass in subclasses:
     accuracy, precision, recall, f1 = compute_metrics_for_subclass(True, subclass, all_predictions, all_labels)
     print(f"Accuracy: {accuracy}")
     for i, class_name in enumerate(class_names):
-        print(f"\tClass: {class_name}")
-        print(f"\tPrecision: {precision[i]}")
-        print(f"\tRecall: {recall[i]}")
-        print(f"\tF1-score: {f1[i]}")
-        print()
+        if i < len(precision):
+            print(f"\tClass: {class_name}")
+            print(f"\tPrecision: {precision[i]}")
+            print(f"\tRecall: {recall[i]}")
+            print(f"\tF1-score: {f1[i]}")
+            print()
     print()
 
 # Compute metrics for each gender subclass
@@ -175,7 +176,11 @@ for subclass in subclasses:
     subclass = gender_dict[subclass]
     accuracy, precision, recall, f1 = compute_metrics_for_subclass(False, subclass, all_predictions, all_labels)
     print(f"Accuracy: {accuracy}")
-    print(f"Precision: {precision}")
-    print(f"Recall: {recall}")
-    print(f"F1-score: {f1}")
+    for i, class_name in enumerate(class_names):
+        if i < len(precision):
+            print(f"\tClass: {class_name}")
+            print(f"\tPrecision: {precision[i]}")
+            print(f"\tRecall: {recall[i]}")
+            print(f"\tF1-score: {f1[i]}")
+            print()
     print()
