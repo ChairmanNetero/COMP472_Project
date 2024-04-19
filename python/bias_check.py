@@ -21,7 +21,7 @@ class CustomImageFolder(datasets.ImageFolder):
         # Apply transformations to the image if required
         if self.transform is not None:
             image = self.transform(image)
-        
+
         return image, target, age, gender
 
 # Define the path to your root folder
@@ -130,13 +130,15 @@ print("F1-score for each subclass:")
 for subclass, f1_scores in zip(dataset.classes, f1):
     print(f"{subclass}: {f1_scores}")
 print()
+print()
+print()
 
 
 
 # Define a function to compute metrics for each subclass
-def compute_metrics_for_subclass(subclass, predictions, labels):
+def compute_metrics_for_subclass(isAge, subclass, predictions, labels):
     # Filter predictions and labels for the specified subclass
-    subclass_indices = (all_ages == subclass) if subclass in ['young', 'middle', 'senior'] else (all_genders == subclass)
+    subclass_indices = [age == subclass for age in all_ages] if isAge else [gender == subclass for gender in all_genders]
     subclass_predictions = predictions[subclass_indices]
     subclass_labels = labels[subclass_indices]
     
@@ -148,16 +150,32 @@ def compute_metrics_for_subclass(subclass, predictions, labels):
     
     return accuracy, precision, recall, f1
 
-print(all_predictions)
-print(all_labels)
-# Compute metrics for each subclass
-subclasses = ['young', 'middle', 'senior', 'male', 'female', 'other']
+# Get the class names from the dataset
+class_names = dataset.classes
+
+# Compute metrics for each age subclass
+subclasses = ['young', 'middle', 'senior']
 for subclass in subclasses:
-    accuracy, precision, recall, f1 = compute_metrics_for_subclass(subclass, all_predictions, all_labels)
     print(f"Metrics for subclass {subclass}:")
+    subclass = age_dict[subclass]
+    accuracy, precision, recall, f1 = compute_metrics_for_subclass(True, subclass, all_predictions, all_labels)
+    print(f"Accuracy: {accuracy}")
+    for i, class_name in enumerate(class_names):
+        print(f"\tClass: {class_name}")
+        print(f"\tPrecision: {precision[i]}")
+        print(f"\tRecall: {recall[i]}")
+        print(f"\tF1-score: {f1[i]}")
+        print()
+    print()
+
+# Compute metrics for each gender subclass
+subclasses = ['male', 'female', 'other']
+for subclass in subclasses:
+    print(f"Metrics for subclass {subclass}:")
+    subclass = gender_dict[subclass]
+    accuracy, precision, recall, f1 = compute_metrics_for_subclass(False, subclass, all_predictions, all_labels)
     print(f"Accuracy: {accuracy}")
     print(f"Precision: {precision}")
     print(f"Recall: {recall}")
     print(f"F1-score: {f1}")
     print()
-
