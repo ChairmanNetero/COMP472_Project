@@ -27,6 +27,9 @@ class CustomImageFolder(datasets.ImageFolder):
 # Define the path to your root folder
 root_folder = '../Data_Part3/root/'
 
+# Open a file in write mode ('w')
+file = open('metrics_output.txt', 'w')
+
 # Define transformations for the dataset
 transform = transforms.Compose([
     transforms.Resize((192, 192)),
@@ -41,11 +44,11 @@ dataset = CustomImageFolder(root=root_folder, transform=transform)
 data_loader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
 
 # Print the classes/categories
-print(dataset.classes)
+file.write(str(dataset.classes) + "\n")
 # Print the number of samples in the dataset
-print(len(dataset))
+file.write(str(len(dataset)) + "\n")
 # Separator
-print("------")
+file.write("------" + "\n")
 
 # Initialize counters for each age and gender category
 age_gender_counts = {('young', 'male'): 0, ('young', 'female'): 0, ('young', 'other'): 0,
@@ -83,16 +86,12 @@ for image, label, age, gender in dataset:
     all_genders.append(gender)
 
 # Print the counts for each age and gender category
-print("Counts for each age and gender category:")
+file.write("Counts for each age and gender category:" + "\n")
 for key, value in age_gender_counts.items():
-    print(f"{key}: {value}")
+    file.write(f"{key}: {value}" + "\n")
 
-# Calculate proportions or percentages for analysis
-total_images = sum(age_gender_counts.values())
-young_male_proportion = age_gender_counts[('young', 'male')] / total_images
-print(f"Proportion of young males: {young_male_proportion}")
-
-
+# Separator
+file.write("------" + "\n")
 
 # Convert age and gender labels to numerical representations (if needed)
 age_dict = {'young': 0, 'middle': 1, 'senior': 2}
@@ -115,25 +114,26 @@ recall = recall_score(all_labels, all_predictions, average=None)
 f1 = f1_score(all_labels, all_predictions, average=None)
 
 # Print the metrics
-print()
-print(f"Overall Accuracy: {accuracy}")
-print()
-print("Precision for each class:")
+file.write("\n")
+file.write(f"Overall Accuracy: {accuracy}" + "\n")
+file.write("\n")
+file.write("Precision for each class:" + "\n")
 for subclass, precision_scores in zip(dataset.classes, precision):
-    print(f"{subclass}: {precision_scores}")
-print()
-print("Recall for each class:")
+    file.write(f"{subclass}: {precision_scores}" + "\n")
+file.write("\n")
+file.write("Recall for each class:" + "\n")
 for subclass, recall_scores in zip(dataset.classes, recall):
-    print(f"{subclass}: {recall_scores}")
-print()
-print("F1-score for each class:")
+    file.write(f"{subclass}: {recall_scores}" + "\n")
+file.write("\n")
+file.write("F1-score for each class:" + "\n")
 for subclass, f1_scores in zip(dataset.classes, f1):
-    print(f"{subclass}: {f1_scores}")
-print()
-print()
-print()
+    file.write(f"{subclass}: {f1_scores}" + "\n")
+file.write("\n")
+file.write("\n")
+file.write("\n")
 
-
+# Separator
+file.write("------" + "\n")
 
 # Define a function to compute metrics for each subclass
 def compute_metrics_for_subclass(isAge, subclass, predictions, labels):
@@ -156,62 +156,47 @@ class_names = dataset.classes
 # Compute metrics for each age subclass
 subclasses = ['young', 'middle', 'senior']
 for s_subclass in subclasses:
-    print(f"Metrics for subclass {s_subclass}:")
+    file.write(f"Metrics for subclass {s_subclass}:" + "\n")
     subclass = age_dict[s_subclass]
     accuracy, precision, recall, f1 = compute_metrics_for_subclass(True, subclass, all_predictions, all_labels)
-    print(f"Accuracy: {accuracy}")
+    file.write(f"Accuracy: {accuracy}" + "\n")
     for i, class_name in enumerate(class_names):
-        # if s_subclass == "young":
-        #     print(f"\tClass: {class_name}")
-        #     print(f"\tPrecision: {precision[i]}")
-        #     print(f"\tRecall: {recall[i]}")
-        #     print(f"\tF1-score: {f1[i]}")
-        #     print()
-
-        # elif class_name == "engaged":
-        #     continue
-
-        # elif class_name != "engaged":
-        #     i -= 1
-            # print(f"\tClass: {class_name}")
-            # print(f"\tPrecision: {precision[i]}")
-            # print(f"\tRecall: {recall[i]}")
-            # print(f"\tF1-score: {f1[i]}")
-            # print()
-
-
         if s_subclass == "middle":
             if class_name == "engaged":
                 continue
 
             else:
                 i -= 1
-                print(f"\tClass: {class_name}")
-                print(f"\tPrecision: {precision[i]}")
-                print(f"\tRecall: {recall[i]}")
-                print(f"\tF1-score: {f1[i]}")
-                print()
+                file.write(f"\tClass: {class_name}" + "\n")
+                file.write(f"\tPrecision: {precision[i]}" + "\n")
+                file.write(f"\tRecall: {recall[i]}" + "\n")
+                file.write(f"\tF1-score: {f1[i]}" + "\n")
+                file.write("\n")
 
         else:
-            print(f"\tClass: {class_name}")
-            print(f"\tPrecision: {precision[i]}")
-            print(f"\tRecall: {recall[i]}")
-            print(f"\tF1-score: {f1[i]}")
-            print()
+            file.write(f"\tClass: {class_name}" + "\n")
+            file.write(f"\tPrecision: {precision[i]}" + "\n")
+            file.write(f"\tRecall: {recall[i]}" + "\n")
+            file.write(f"\tF1-score: {f1[i]}" + "\n")
+            file.write("\n")
 
-    print()
+    file.write("\n")
 
 # Compute metrics for each gender subclass
 subclasses = ['male', 'female', 'other']
 for subclass in subclasses:
-    print(f"Metrics for subclass {subclass}:")
+    file.write(f"Metrics for subclass {subclass}:" + "\n")
     subclass = gender_dict[subclass]
     accuracy, precision, recall, f1 = compute_metrics_for_subclass(False, subclass, all_predictions, all_labels)
-    print(f"Accuracy: {accuracy}")
+    file.write(f"Accuracy: {accuracy}" + "\n")
     for i, class_name in enumerate(class_names):
-        print(f"\tClass: {class_name}")
-        print(f"\tPrecision: {precision[i]}")
-        print(f"\tRecall: {recall[i]}")
-        print(f"\tF1-score: {f1[i]}")
-        print()
-    print()
+        file.write(f"\tClass: {class_name}" + "\n")
+        file.write(f"\tPrecision: {precision[i]}" + "\n")
+        file.write(f"\tRecall: {recall[i]}" + "\n")
+        file.write(f"\tF1-score: {f1[i]}" + "\n")
+        file.write("\n")
+    file.write("\n")
+
+
+# Close the file
+file.close()

@@ -1,0 +1,171 @@
+['engaged', 'happy', 'neutral', 'surprise']
+2082
+------
+Counts for each age and gender category:
+('young', 'male'): 609
+('young', 'female'): 556
+('young', 'other'): 78
+('middle', 'male'): 230
+('middle', 'female'): 205
+('middle', 'other'): 58
+('senior', 'male'): 173
+('senior', 'female'): 117
+('senior', 'other'): 56
+------
+
+Overall Accuracy: 0.739193083573487
+
+Precision for each class:
+engaged: 0.9981617647058824
+happy: 0.5651041666666666
+neutral: 0.6181818181818182
+surprise: 0.9309090909090909
+
+Recall for each class:
+engaged: 0.9963302752293578
+happy: 0.8543307086614174
+neutral: 0.59765625
+surprise: 0.4951644100580271
+
+F1-score for each class:
+engaged: 0.9972451790633609
+happy: 0.6802507836990594
+neutral: 0.6077457795431976
+surprise: 0.6464646464646465
+
+
+
+------
+Metrics for subclass young:
+Accuracy: 0.8004827031375704
+	Class: engaged
+	Precision: 1.0
+	Recall: 0.9963302752293578
+	F1-score: 0.9981617647058822
+
+	Class: happy
+	Precision: 0.4716312056737589
+	Recall: 0.7869822485207101
+	F1-score: 0.5898004434589801
+
+	Class: neutral
+	Precision: 0.6727941176470589
+	Recall: 0.6931818181818182
+	F1-score: 0.6828358208955224
+
+	Class: surprise
+	Precision: 0.9315068493150684
+	Recall: 0.5132075471698113
+	F1-score: 0.6618004866180048
+
+
+Metrics for subclass middle:
+Accuracy: 0.6673427991886409
+	Class: happy
+	Precision: 0.6266094420600858
+	Recall: 0.8538011695906432
+	F1-score: 0.7227722772277227
+
+	Class: neutral
+	Precision: 0.5512820512820513
+	Recall: 0.6615384615384615
+	F1-score: 0.6013986013986014
+
+	Class: surprise
+	Precision: 0.9326923076923077
+	Recall: 0.5052083333333334
+	F1-score: 0.6554054054054055
+
+
+Metrics for subclass senior:
+Accuracy: 0.6213872832369942
+	Class: engaged
+	Precision: 0.0
+	Recall: 0.0
+	F1-score: 0.0
+
+	Class: happy
+	Precision: 0.6126482213438735
+	Recall: 0.9226190476190477
+	F1-score: 0.7363420427553445
+
+	Class: neutral
+	Precision: 0.5522388059701493
+	Recall: 0.3135593220338983
+	F1-score: 0.39999999999999997
+
+	Class: surprise
+	Precision: 0.92
+	Recall: 0.38333333333333336
+	F1-score: 0.5411764705882353
+
+
+Metrics for subclass male:
+Accuracy: 0.6996047430830039
+	Class: engaged
+	Precision: 0.9962264150943396
+	Recall: 1.0
+	F1-score: 0.998109640831758
+
+	Class: happy
+	Precision: 0.4447852760736196
+	Recall: 0.8579881656804734
+	F1-score: 0.5858585858585859
+
+	Class: neutral
+	Precision: 0.5905797101449275
+	Recall: 0.6037037037037037
+	F1-score: 0.597069597069597
+
+	Class: surprise
+	Precision: 0.9379310344827586
+	Recall: 0.4401294498381877
+	F1-score: 0.5991189427312775
+
+
+Metrics for subclass female:
+Accuracy: 0.7505694760820045
+	Class: engaged
+	Precision: 1.0
+	Recall: 0.9922779922779923
+	F1-score: 0.9961240310077519
+
+	Class: happy
+	Precision: 0.476027397260274
+	Recall: 0.8224852071005917
+	F1-score: 0.6030368763557483
+
+	Class: neutral
+	Precision: 0.715
+	Recall: 0.5909090909090909
+	F1-score: 0.6470588235294118
+
+	Class: surprise
+	Precision: 0.9302325581395349
+	Recall: 0.5769230769230769
+	F1-score: 0.7121661721068249
+
+
+Metrics for subclass other:
+Accuracy: 0.8958333333333334
+	Class: engaged
+	Precision: 1.0
+	Recall: 1.0
+	F1-score: 1.0
+
+	Class: happy
+	Precision: 1.0
+	Recall: 0.8823529411764706
+	F1-score: 0.9375
+
+	Class: neutral
+	Precision: 0.0
+	Recall: 0.0
+	F1-score: 0.0
+
+	Class: surprise
+	Precision: 0.0
+	Recall: 0.0
+	F1-score: 0.0
+
+
