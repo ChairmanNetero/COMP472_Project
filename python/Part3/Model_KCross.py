@@ -212,7 +212,8 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
         print(f'best model is now {best_score}')
         torch.save(model.state_dict(), f'best_model_PartIII.model')
 
-
+    print("saving model")
+    torch.save(model.state_dict(), f'Model_{fold}.model')
     precision, recall, f1_score_value, _ = precision_recall_fscore_support(all_labels, all_predictions, average='micro')
     print(f'Micro Precision: {precision}')
     print(f'Micro Recall: {recall}')
