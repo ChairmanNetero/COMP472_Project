@@ -8,7 +8,7 @@ def Re_Labeling(path, file_name):
     file_name = file_name.rstrip("_") + "_"
 
     # counter for iterating 
-    counter = 517
+    counter = 509
 
     # For loop to go through each file and rename with the counter
     for file in files:
@@ -38,7 +38,7 @@ def Re_Labeling(path, file_name):
 
 ## first argument is the path of the directory, second argument is the the name you wanna give it 
 ##ENTER HERE FOR RUNNING THE SCRIPT 
-Re_Labeling("../Final2", "_surprise_senior_male")
+Re_Labeling("../Final2", "_happy_senior_male")
 
 
 print("done")

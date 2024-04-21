@@ -3,8 +3,8 @@ from PIL import Image, ImageEnhance
 import matplotlib.pyplot as plt
 
 # Source and result folder 
-src_folder = '../../Final/'
-result_folder = '../../Final2/'
+src_folder = '../../Final2/'
+result_folder = '../../Data_Part3/New/happy'
 
 # In case result_folder 
 os.makedirs(result_folder, exist_ok=True)
