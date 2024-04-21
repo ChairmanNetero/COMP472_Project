@@ -117,6 +117,12 @@ This script simply make the image 20% brighter to mitigate any bias of the data.
 run with:
 `python Brightning_Script.py`
 
+`bias_check.py`
+Run metrics on main model saved in the models folder. These metrics include the bias for each subclass.
+
+run with:
+`python bias_check.py`
+
 ### Models
 `best_model_fold_PartII.pt`
 This model is the result of training the part II model with the same data using cross validation
