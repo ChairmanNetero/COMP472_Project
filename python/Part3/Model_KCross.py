@@ -14,6 +14,7 @@ from torchvision import datasets
 from sklearn.model_selection import KFold
 from sklearn.metrics import precision_recall_fscore_support
 
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 print(device)
@@ -26,10 +27,10 @@ transformer = transforms.Compose([
     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
 
-dataset = datasets.ImageFolder('../../Data/train', transform=transformer)
+dataset = datasets.ImageFolder('../../Data_Part3/New', transform=transformer)
 
 # Categories
-root = pathlib.Path('../../Data/train')
+root = pathlib.Path('../../Data_Part3/New')
 classes = sorted([j.name.split('/')[-1] for j in root.iterdir()])
 print(classes)
 
@@ -123,7 +124,7 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
     optimizer = Adam(model.parameters(), lr=0.01, weight_decay=0.0001)
     loss_function = nn.CrossEntropyLoss()
 
-    num_epochs = 10
+    num_epochs = 20
 
 
     # Training loop for num_epochs
@@ -185,7 +186,7 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
         best_score = f1_score
         print('changing')
         print(f'best model is now {best_score}')
-        torch.save(model.state_dict(), f'best_model_fold.pt')
+        torch.save(model.state_dict(), f'best_model_PartIII.model')
 
 
     precision, recall, f1_score, _ = precision_recall_fscore_support(all_labels, all_predictions, average='micro')
