@@ -12,7 +12,26 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 from torchvision import datasets
 from sklearn.model_selection import KFold
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, precision_recall_fscore_support
+
+
+class CustomImageFolder(datasets.ImageFolder):
+    def __getitem__(self, index):
+        # Override the __getitem__ method to return the file name along with the image and its label
+        path, target = self.samples[index]
+        image = self.loader(path)
+        
+        # Extract the age and gender information from the file name
+        filename, _ = os.path.splitext(os.path.basename(path))
+        age, gender = filename.split('_')[-2:]
+        
+        # Convert age and gender strings to integers or categorical variables if necessary
+        
+        # Apply transformations to the image if required
+        if self.transform is not None:
+            image = self.transform(image)
+
+        return image, target, age, gender
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -27,7 +46,8 @@ transformer = transforms.Compose([
     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
 
-dataset = datasets.ImageFolder('../../Data_Part3/New', transform=transformer)
+# dataset = datasets.ImageFolder('../../Data_Part3/New', transform=transformer)
+dataset = CustomImageFolder(root='../../Data_Part3/New', transform=transformer)
 
 # Categories
 root = pathlib.Path('../../Data_Part3/New')
@@ -133,7 +153,7 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
         train_accuracy = 0.0
         train_loss = 0.0
         # Loop over the training data
-        for i, (images, labels) in enumerate(train_loader):
+        for i, (images, labels, age, gender) in enumerate(train_loader):
             if torch.cuda.is_available():
                 images = Variable(images.cuda())
                 labels = Variable(labels.cuda())
@@ -154,14 +174,17 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
     # Print about testing
     print('Starting testing')
     model.eval()
+
     # Testing process
     total = 0
     correct = 0
     all_labels = []
     all_predictions = []
+    all_ages = []
+    all_genders = []
     with torch.no_grad():  # Temporarily turn off gradient descent
         for data in test_loader:
-            images, labels = data
+            images, labels, age, gender = data
             images, labels = images.to(device), labels.to(device)
             outputs = model(images)
             _, predicted = torch.max(outputs.data, 1)
@@ -171,33 +194,108 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
             # Store all labels and predictions
             all_labels.extend(labels.cpu().numpy())
             all_predictions.extend(predicted.cpu().numpy())
+            all_ages.extend(age)
+            all_genders.extend(gender)
 
     accuracy = 100 * correct / total
     print(f'Accuracy for fold {fold}: {accuracy}%')
 
     # Calculate precision, recall, f1-score
-    precision, recall, f1_score, _ = precision_recall_fscore_support(all_labels, all_predictions, average='macro')
+    precision, recall, f1_score_value, _ = precision_recall_fscore_support(all_labels, all_predictions, average='macro')
     print(f'Macro Precision: {precision}')
     print(f'Macro Recall: {recall}')
-    print(f'Macro F1 score: {f1_score}')
+    print(f'Macro F1 score: {f1_score_value}')
     # Save the best model 
-    if f1_score > best_score:
+    if f1_score_value > best_score:
         print(f'best model is now {best_score}')
-        best_score = f1_score
+        best_score = f1_score_value
         print('changing')
         print(f'best model is now {best_score}')
         torch.save(model.state_dict(), f'best_model_PartIII.model')
 
 
-    precision, recall, f1_score, _ = precision_recall_fscore_support(all_labels, all_predictions, average='micro')
+    precision, recall, f1_score_value, _ = precision_recall_fscore_support(all_labels, all_predictions, average='micro')
     print(f'Micro Precision: {precision}')
     print(f'Micro Recall: {recall}')
-    print(f'Micro F1 score: {f1_score}')
+    print(f'Micro F1 score: {f1_score_value}')
     # Process is complete.
     print('Training process has finished. Saving trained model.')
     # Print fold results
     print(f'Accuracy for fold {fold}: {accuracy}%')
     print('--------------------------------')
+
+    # Convert age and gender labels to numerical representations (if needed)
+    age_dict = {'young': 0, 'middle': 1, 'senior': 2}
+    gender_dict = {'male': 0, 'female': 1, 'other': 2}
+
+    # Convert age and gender labels from strings to numerical representations using the dictionaries
+    all_ages = [age_dict[age] for age in all_ages]
+    all_genders = [gender_dict[gender] for gender in all_genders]
+
+    # Define a function to compute metrics for each subclass
+    def compute_metrics_for_subclass(isAge, subclass, predictions, labels):
+        # Filter predictions and labels for the specified subclass
+        # subclass_indices = [age == subclass for age in all_ages] if isAge else [gender == subclass for gender in all_genders]
+        # subclass_predictions = predictions[subclass_indices]
+        # subclass_labels = labels[subclass_indices]
+        subclass_indices = [i for i, age in enumerate(all_ages) if age == subclass] if isAge else [i for i, gender in enumerate(all_genders) if gender == subclass]
+        subclass_predictions = [predictions[i] for i in subclass_indices]
+        subclass_labels = [labels[i] for i in subclass_indices]
+        
+        # Compute metrics
+        accuracy_score_value = accuracy_score(subclass_labels, subclass_predictions)
+        precision_score_value = precision_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
+        recall_score_value = recall_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
+        f1_score_value = f1_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
+        
+        return accuracy_score_value, precision_score_value, recall_score_value, f1_score_value
+
+    # Get the class names from the dataset
+    class_names = dataset.classes
+
+    # Compute metrics for each age subclass
+    subclasses = ['young', 'middle', 'senior']
+    for s_subclass in subclasses:
+        print(f"Metrics for subclass {s_subclass}:")
+        subclass = age_dict[s_subclass]
+        accuracy, precision, recall, f1 = compute_metrics_for_subclass(True, subclass, all_predictions, all_labels)
+        print(f"Accuracy: {accuracy}")
+        for i, class_name in enumerate(class_names):
+            if s_subclass == "middle":
+                if class_name == "engaged":
+                    continue
+
+                else:
+                    i -= 1
+                    print(f"\tClass: {class_name}")
+                    print(f"\tPrecision: {precision[i]}")
+                    print(f"\tRecall: {recall[i]}")
+                    print(f"\tF1-score: {f1[i]}")
+                    print()
+
+            else:
+                print(f"\tClass: {class_name}")
+                print(f"\tPrecision: {precision[i]}")
+                print(f"\tRecall: {recall[i]}")
+                print(f"\tF1-score: {f1[i]}")
+                print()
+
+        print()
+
+    # Compute metrics for each gender subclass
+    subclasses = ['male', 'female', 'other']
+    for subclass in subclasses:
+        print(f"Metrics for subclass {subclass}:")
+        subclass = gender_dict[subclass]
+        accuracy, precision, recall, f1 = compute_metrics_for_subclass(False, subclass, all_predictions, all_labels)
+        print(f"Accuracy: {accuracy}")
+        for i, class_name in enumerate(class_names):
+            print(f"\tClass: {class_name}")
+            print(f"\tPrecision: {precision[i]}")
+            print(f"\tRecall: {recall[i]}")
+            print(f"\tF1-score: {f1[i]}")
+            print()
+        print()
 
 # Print overall results
 print('--------------------------------')
