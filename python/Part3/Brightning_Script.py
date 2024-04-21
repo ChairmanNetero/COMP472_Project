@@ -2,16 +2,16 @@ import os
 from PIL import Image, ImageEnhance
 import matplotlib.pyplot as plt
 
-# Specify the source folder and the destination folder
+# Source and result folder 
 src_folder = '../../Data_Part3/root/surprise'
-dst_folder = '../../Data_Part3/New/surprise'
+result_folder = '../../Data_Part3/New/surprise'
 
-# Create the destination folder if it doesn't exist
-os.makedirs(dst_folder, exist_ok=True)
+# In case result_folder 
+os.makedirs(result_folder, exist_ok=True)
 
-
+# To make it so that it only shows once for the plt images
 counter = 0
-# Go through all files in the source folder
+# Goes through files in the source folder
 for filename in os.listdir(src_folder):
     if filename.endswith('.jpg') or filename.endswith('.png'):  # Add or modify if you have different image file types
         # Open the image file
@@ -19,9 +19,9 @@ for filename in os.listdir(src_folder):
         
         # Brighten the image
         enhancer = ImageEnhance.Brightness(img)
-        img_bright = enhancer.enhance(1.2)  # Increase brightness by 20%
+        img_bright = enhancer.enhance(1.2)  # increases the image brightness by 20%
 
-        # If this is the first image, display the original and brightened images
+        #first image 
         if counter == 0:
             # Display the original image
             plt.figure(figsize=(10, 5))
@@ -36,7 +36,7 @@ for filename in os.listdir(src_folder):
             plt.show()
 
         # Save the brightened image to the destination folder
-        img_bright.save(os.path.join(dst_folder, filename))
+        img_bright.save(os.path.join(result_folder, filename))
 
-        # Increment the counter
+        # Increment the counter so that the plt images only show once
         counter += 1
