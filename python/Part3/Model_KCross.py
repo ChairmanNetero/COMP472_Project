@@ -143,7 +143,7 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
     optimizer = Adam(model.parameters(), lr=0.01, weight_decay=0.0001)
     loss_function = nn.CrossEntropyLoss()
 
-    num_epochs = 1
+    num_epochs = 20
 
 
     # Training loop for num_epochs
