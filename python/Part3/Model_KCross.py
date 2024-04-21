@@ -46,7 +46,6 @@ transformer = transforms.Compose([
     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
 
-# dataset = datasets.ImageFolder('../../Data_Part3/New', transform=transformer)
 dataset = CustomImageFolder(root='../../Data_Part3/New', transform=transformer)
 
 # Categories
@@ -144,7 +143,7 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
     optimizer = Adam(model.parameters(), lr=0.01, weight_decay=0.0001)
     loss_function = nn.CrossEntropyLoss()
 
-    num_epochs = 20
+    num_epochs = 1
 
 
     # Training loop for num_epochs
@@ -235,18 +234,16 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
     # Define a function to compute metrics for each subclass
     def compute_metrics_for_subclass(isAge, subclass, predictions, labels):
         # Filter predictions and labels for the specified subclass
-        # subclass_indices = [age == subclass for age in all_ages] if isAge else [gender == subclass for gender in all_genders]
-        # subclass_predictions = predictions[subclass_indices]
-        # subclass_labels = labels[subclass_indices]
         subclass_indices = [i for i, age in enumerate(all_ages) if age == subclass] if isAge else [i for i, gender in enumerate(all_genders) if gender == subclass]
         subclass_predictions = [predictions[i] for i in subclass_indices]
         subclass_labels = [labels[i] for i in subclass_indices]
         
         # Compute metrics
+        all_classes = [0, 1, 2, 3]
         accuracy_score_value = accuracy_score(subclass_labels, subclass_predictions)
-        precision_score_value = precision_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
-        recall_score_value = recall_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
-        f1_score_value = f1_score(subclass_labels, subclass_predictions, average=None, zero_division=0)
+        precision_score_value = precision_score(subclass_labels, subclass_predictions, labels=all_classes, average=None, zero_division=0)
+        recall_score_value = recall_score(subclass_labels, subclass_predictions, labels=all_classes, average=None, zero_division=0)
+        f1_score_value = f1_score(subclass_labels, subclass_predictions, labels=all_classes, average=None, zero_division=0)
         
         return accuracy_score_value, precision_score_value, recall_score_value, f1_score_value
 
@@ -261,24 +258,11 @@ for fold, (train_ids, test_ids) in enumerate(kfold.split(dataset)):
         accuracy, precision, recall, f1 = compute_metrics_for_subclass(True, subclass, all_predictions, all_labels)
         print(f"Accuracy: {accuracy}")
         for i, class_name in enumerate(class_names):
-            if s_subclass == "middle":
-                if class_name == "engaged":
-                    continue
-
-                else:
-                    i -= 1
-                    print(f"\tClass: {class_name}")
-                    print(f"\tPrecision: {precision[i]}")
-                    print(f"\tRecall: {recall[i]}")
-                    print(f"\tF1-score: {f1[i]}")
-                    print()
-
-            else:
-                print(f"\tClass: {class_name}")
-                print(f"\tPrecision: {precision[i]}")
-                print(f"\tRecall: {recall[i]}")
-                print(f"\tF1-score: {f1[i]}")
-                print()
+            print(f"\tClass: {class_name}")
+            print(f"\tPrecision: {precision[i]}")
+            print(f"\tRecall: {recall[i]}")
+            print(f"\tF1-score: {f1[i]}")
+            print()
 
         print()
 
