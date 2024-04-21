@@ -5,7 +5,7 @@ def Re_Labeling(path, file_name):
     files = os.listdir(path)
 
     # has a format to prevent errors in the file_name
-    file_name = file_name.rstrip("_") + "_"
+    file_name = file_name.rstrip("_")
 
     # counter for iterating 
     counter = 509
