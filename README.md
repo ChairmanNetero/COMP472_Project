@@ -81,7 +81,7 @@ install required libraries using pip3:
 
 ### Performance Evaluation 
 
-`Acrchitectures.py` 
+`Architectures.py` 
 This is used to define the architecture of each model class, its used as a import for eval_images and eval_models
 
 No need to run it since it's just used as an import. 
@@ -97,3 +97,29 @@ This script is used to evaluate all three models. It prints out the confusion ma
 
 ### Models  
 This folder contains all three of the best models saved from `Model_Training`
+
+
+### Part 3
+
+### Cross Validation Model and scripts
+
+`Model_KCross.py`
+This is where it will train with the given dataset, with cross validation of 10 folds, you can define the number of epochs in the fold loop.
+it will also print which fold its at and print the macro and micro precision, recall, f1 and accuracy results for each fold's model, at the 
+end of the run it will save the model with the best f1 score. As well it calculate the bias metrics on each fold and prints the results. 
+
+run with:
+`python Model_KCross.py`
+
+`Brightning_Script.py`
+This script simply make the image 20% brighter to mitigate any bias of the data. Must give it a directory folder of images and a result folder directory for after the scripts run 
+
+run with:
+`python Brightning_Script.py`
+
+### Models
+`best_model_fold_PartII.pt`
+This model is the result of training the part II model with the same data using cross validation
+
+`best_model_PartIII.model`
+The best model from part III model retraining for better bias.
