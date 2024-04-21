@@ -38,7 +38,7 @@ def Re_Labeling(path, file_name):
 
 ## first argument is the path of the directory, second argument is the the name you wanna give it 
 ##ENTER HERE FOR RUNNING THE SCRIPT 
-Re_Labeling("../Final", "_surprise_young_male")
+Re_Labeling("../Final2", "_surprise_senior_male")
 
 
 print("done")
