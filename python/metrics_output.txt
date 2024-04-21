@@ -62,19 +62,19 @@ Accuracy: 0.8004827031375704
 Metrics for subclass middle:
 Accuracy: 0.6673427991886409
 	Class: happy
+	Precision: 0.0
+	Recall: 0.0
+	F1-score: 0.0
+
+	Class: neutral
 	Precision: 0.6266094420600858
 	Recall: 0.8538011695906432
 	F1-score: 0.7227722772277227
 
-	Class: neutral
+	Class: surprise
 	Precision: 0.5512820512820513
 	Recall: 0.6615384615384615
 	F1-score: 0.6013986013986014
-
-	Class: surprise
-	Precision: 0.9326923076923077
-	Recall: 0.5052083333333334
-	F1-score: 0.6554054054054055
 
 
 Metrics for subclass senior:
