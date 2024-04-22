@@ -19,7 +19,7 @@ from sklearn.metrics import precision_score
 # variant_2 = os.path.join(current_dir, "models/best_model_Variant2.model")
 
 test_dataset_path = "../Data/test"
-main_model = "models/best_model_Main.model"
+main_model = "part3/Model_4.model"
 variant_1 = "models/best_model_Variant1.model"
 variant_2 = "models/best_model_Variant2.model"
 
@@ -132,7 +132,7 @@ batch_size = 32
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
 eval_model(main_model, test_dataset, test_loader, Main)
-eval_model(variant_1, test_dataset, test_loader, Variant1)
-eval_model(variant_2, test_dataset, test_loader, Variant2)
+# eval_model(variant_1, test_dataset, test_loader, Variant1)
+# eval_model(variant_2, test_dataset, test_loader, Variant2)
 
 

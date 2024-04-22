@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import load_files
 
 # Path to the folder containing class folders
-data_folder = '../Data/train'
+data_folder = '../Data_Part3/New'
 
 # Load images using scikit-learn
 image_data = load_files(data_folder, shuffle=False)

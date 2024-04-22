@@ -46,10 +46,10 @@ transformer = transforms.Compose([
     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
 
-dataset = CustomImageFolder(root='../../Data_Part3/New', transform=transformer)
+dataset = CustomImageFolder(root='../Data_Part3/New', transform=transformer)
 
 # Categories
-root = pathlib.Path('../../Data_Part3/New')
+root = pathlib.Path('../Data_Part3/New')
 classes = sorted([j.name.split('/')[-1] for j in root.iterdir()])
 print(classes)
 

@@ -127,5 +127,19 @@ run with:
 `best_model_fold_PartII.pt`
 This model is the result of training the part II model with the same data using cross validation
 
+`best_model_PartIII_Old.model`
+The best model from part III model retraining for better bias after the first attempt to try to fix bias.
+
 `best_model_PartIII.model`
-The best model from part III model retraining for better bias.
+The best model from part III model retraining for better bias after the second and last attempt to fix bias.
+
+### Fold Models 
+contains the final models from the final dataset we trained where we saved each fold's model from 0 to 9
+
+### Output texts
+
+`PartII_metric_output_V1.txt`
+This is the output of the bias check for the Part II Saved model
+
+`PartIII_metric_output_V2.txt`
+This is the output of the final model of Part III for its training fold and all its important data 
